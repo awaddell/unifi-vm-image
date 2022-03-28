@@ -5,7 +5,7 @@ FROM curlimages/curl:7.82.0 AS curl
 ARG UNIFI_DEB
 ARG UNIFI_VER=7.0.23
 
-WORKDIR /tmp/unifi
+WORKDIR /tmp
 RUN curl -sLO "https://dl.ui.com/unifi/${UNIFI_VER}/${UNIFI_DEB}"
 
 FROM ubuntu:focal-20220316 AS build
@@ -13,7 +13,7 @@ FROM ubuntu:focal-20220316 AS build
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UNIFI_DEB
 
-COPY --from=curl /tmp/unifi .
+COPY --from=curl /tmp/$UNIFI_DEB .
 
 RUN ls -lt
 
